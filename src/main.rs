@@ -2,10 +2,11 @@ use chrono::{DateTime, Utc};
 use dotenv::dotenv;
 use regex::Regex;
 use reqwest::Client;
-use rocket::http::Status;
+use rocket::http::{Method, Status};
 use rocket::request::{self, FromRequest, Outcome, Request};
 use rocket::State;
 use rocket::{get, launch, routes};
+use rocket_cors::{AllowedHeaders, AllowedOrigins};
 use serde_json::json;
 use std::collections::HashMap;
 use std::net::IpAddr;
@@ -102,7 +103,18 @@ async fn mail(
 fn rocket() -> _ {
     dotenv().ok();
 
+    let cors = rocket_cors::CorsOptions {
+        allowed_origins: AllowedOrigins::some_exact(&["https://nodetick.com"]),
+        allowed_methods: vec![Method::Get].into_iter().map(From::from).collect(),
+        allowed_headers: AllowedHeaders::some(&["Authorization", "Accept"]),
+        allow_credentials: true,
+        ..Default::default()
+    }
+    .to_cors()
+    .expect("CORS configuration error");
+
     rocket::build()
         .mount("/", routes![mail])
         .manage(RateLimiter::default())
+        .attach(cors)
 }
