@@ -20,7 +20,7 @@ pub struct RateLimiter {
 
 impl RateLimiter {
     fn check_if_rate_limited(&self, ip_addr: IpAddr) -> Result<(), String> {
-        let throttle_time_limit = Utc::now() - std::time::Duration::from_secs(60);
+        let throttle_time_limit = Utc::now() - std::time::Duration::from_secs(10);
         let mut requests_hashmap = self.requests.lock().unwrap();
         let requests_for_ip = requests_hashmap.entry(ip_addr).or_insert(Vec::new());
         requests_for_ip.retain(|x| x > &throttle_time_limit);
