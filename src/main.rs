@@ -3,7 +3,7 @@ use dotenv::dotenv;
 use regex::Regex;
 use reqwest::Client;
 use rocket::http::{Method, Status};
-use rocket::request::{self, FromRequest, Outcome, Request};
+use rocket::request::{FromRequest, Outcome, Request};
 use rocket::State;
 use rocket::{get, launch, routes};
 use rocket_cors::{AllowedHeaders, AllowedOrigins};

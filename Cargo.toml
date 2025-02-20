@@ -6,9 +6,9 @@ edition = "2021"
 [dependencies]
 rocket = "0.5.1"
 rocket_cors = { version = "0.6.0", default-features = false }
-chrono = { version = "^0.4.38" }
-serde = { version = "1.0.210", features = ["derive"] }
-serde_json = "1.0.128"
-reqwest = { version = "0.12.8", features = ["json"] }
-regex = "1.11.0"
+chrono = { version = "0.4.39" }
+serde = { version = "1.0.218", features = ["derive"] }
+serde_json = "1.0.139"
+reqwest = { version = "0.12.12", features = ["json"] }
+regex = "1.11.1"
 dotenv = "0.15.0"
